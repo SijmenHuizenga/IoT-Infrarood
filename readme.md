@@ -10,7 +10,7 @@ Licht en infrarood zijn beide [elektromagnetische straling](https://nl.wikipedia
 
 Elektromagnetische straling kan (net als elk ander deeltje) zowel beschreven worden als golf of als deeltje volgens het [Wave–particle duality](https://en.wikipedia.org/wiki/Wave–particle_duality) concept. 
 
-Het verschil tussen licht en infrarood is dat beide elektromagnetische stralingen een andere frequentie hebben op het [elektromagnetisch spectrum](https://nl.wikipedia.org/wiki/Elektromagnetisch_spectrum). Zichtbaar licht zit tussen de 394 en 789 THz en infrarood tussen de 0.3 en 394 THz.
+Het verschil tussen zichtbaar licht en infrarood licht is dat beide elektromagnetische stralingen een andere frequentie hebben op het [elektromagnetisch spectrum](https://nl.wikipedia.org/wiki/Elektromagnetisch_spectrum). Zichtbaar licht zit tussen de 394 en 789 THz en infrarood tussen de 0.3 en 394 THz.
 
 Om elektromagnetische stralingen te deteteren heb je een materiaal nodig dat fotonen detecteert en omzet naar electrische signialen.  De [sensor die wij gebruiken](http://www.produktinfo.conrad.com/datenblaetter/150000-174999/171093-da-01-en-IR_EMPFAENGER_MODUL_TSOP_4833__VIS.pdf) voor infrarood detectie is een [photodetector](https://en.wikipedia.org/wiki/Photodetector) die het materiaal [mercury cadmium telluride](https://en.wikipedia.org/wiki/Mercury_cadmium_telluride#Infrared_detection) gebruikt voor deze detectie. Deze sensor werkt op frequenties van elektromagnetische straling rond de 315 THz (zie Fig. 10 in datasheet sensor). 
 
@@ -31,7 +31,20 @@ Onderstaande plaatje laat zien hoe alle bovengenoemde frequenties zich tot elkaa
 Conclusie is dat dieren geen infraroodlicht kunnen zien en dus ook niet verblind worden met een afstandsbediening. Deze conclusie kan worden gecontroleerd door op youtube te zoeken naar "animal infrared remote control". Als het mogelijk zou zijn om dieren bang te maken met je afstandbediening dan zouden er duizenden filmpjes hiervan te vinden zijn.
 
 ### 3. Welke “huis, tuin en keuken”-manieren zijn er te kunnen zien of je infraroodled wel echt licht geeft?
+Met een digitale camera. De digitale camera ziet die frequentie in tegenstelling tot mensen wel. 
+![IR Led camera](https://images.techhive.com/images/article/2014/01/remote_sensor_580-100227154-orig.gif)
+
 ### 4. Er is in huis meer dan alleen je afstandsbediening die IR-licht uitstraalt. Wat nog meer bijvoorbeeld? En hoe kan het dat je tv daar niet af en toe per ongeluk op reageert?
+Elektromagnetische straling [wordt uitgestraald](http://www.qrg.northwestern.edu/projects/vss/docs/thermal/3-what-makes-em-radiation.html) wanneer electronen binnen een atoom terugvalt in de orginele positie nadat het atoom energy heeft geabsorbeerd. Bij warme materie is dit process continu aan de gang waardoor deze straling uitzenden. Aleen materie van 0 kelvin straalt geen straling uit. Deze straling wordt ook wel [black-body radiation](https://en.wikipedia.org/wiki/Black-body_radiation) genoemd. Volgens [de wet van Planck](https://en.wikipedia.org/wiki/Planck%27s_law) is de frequentie waarin een materie black-body radiation uitzend afhankelijk van de temepratuur van de materie. 
+
+Gebruik makend van een [online black body emission calculator](http://www.calctool.org/CALC/phys/p_thermo/wien) zijn de volgende waardes berekend:
+20c = golflengte 9884.93nm = frequentie 0.30THz
+40c = golflengte 9251.61nm = frequentie 0.32THz
+
+Het komt er dus op neer dat alle objecten van huiskamertemepratuur infrarood uitstralen! Maar deze frequenties zijn veel te laag om opgepikt te worden door de televisie. 
+
+In theorie zou een materie van 2776.85 graden celsius een golflengte van 950nm produceren. Als die bron ook nog het bij toeval het protocol van de tv-afstandsbediening weet uit te zenden dan zou in theorie de tv aangezet kunnen worden. Maar dit is praktisch ongelofelijk onmogelijk.
+
 ### 5. Hoe kan je tv onderscheid maken tussen verschillende knoppen?
 ### 6. Hoe kan het dat je tv (over het algemeen) niet reageert op de afstandsbediening van je dvd-speler of die van de tv van je buurvrouw?
 ### 7. Hoe kan het dat sommige knoppen als ze ingedrukt worden steeds effect blijven houden (zoals de volumeknoppen) en andere niet (bijvoorbeeld de “2”-knop)?
