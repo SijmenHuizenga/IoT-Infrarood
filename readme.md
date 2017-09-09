@@ -46,5 +46,10 @@ Het komt er dus op neer dat alle objecten van huiskamertemepratuur infrarood uit
 In theorie zou een materie van 2776.85 graden celsius een golflengte van 950nm produceren. Als die bron ook nog het bij toeval het protocol van de tv-afstandsbediening weet uit te zenden dan zou in theorie de tv aangezet kunnen worden. Maar dit is praktisch ongelofelijk onmogelijk.
 
 ### 5. Hoe kan je tv onderscheid maken tussen verschillende knoppen?
+Elke knop op je afstandsbediening zend een andere code uit. Dus het pattroon waarin het infrarood ledje knippert is blij elke knop uniek. De tv herkent dit pattroon en weet zo welke knop is ingedrukt. 
+
 ### 6. Hoe kan het dat je tv (over het algemeen) niet reageert op de afstandsbediening van je dvd-speler of die van de tv van je buurvrouw?
+Het pattroon dat de tv en afstandsbediening afspreken bevat ook een gedeelte dat voor elke tv anders is. Dit is de aparaatcode. Door deze code elke keer mee te sturen wanneer de afstandsbediening een signiaal verzend kunnen alle ontvangende apparaten contorleren of deze code overeenkomt met de eigen code. Als dit het geval dan weet het ontvangende aparaat dat het signiaal van zijn afstandsbediening komt. 
+
 ### 7. Hoe kan het dat sommige knoppen als ze ingedrukt worden steeds effect blijven houden (zoals de volumeknoppen) en andere niet (bijvoorbeeld de “2”-knop)?
+De afstandsbediening is dom in de zin dat hij bij een ingedrukte knop continu het afgesproken pattroon blijft knipperen. Dit geld voor alle knoppen. De ontvangende partij kan doen met deze informatie wat hij wil. Zo zal een tv die een aan/uit knop pattroon ontvangt zichzelf uitzetten en pas weer een aan/uit knop pattroon accepteren wanneer het een tijdje stil is. Bij de vollumeknop zal er een andere logica in de tv zitten die er voor zorgt dat zolang het pattroon binnen komt elke halve seconde het volume wordt verhoogd. 
