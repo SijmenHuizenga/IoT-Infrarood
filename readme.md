@@ -68,3 +68,14 @@ De sensor geeft een HIGH signiaal wanneer er geen infraroodsigniaal wordt ontvan
 
 ### Wat is de minimale wachttijd die je nodig hebt om te voorkomen dat het ledje gaat knipperen? Wat betekent dat?
 TODO
+
+## Opdracht 3: Code opvangen met digitalRead
+*Schrijf een (nieuw) programma dat in de loop steeds een digitalRead op de IR-poort uitvoert. Laat het programma de lengte van een puls meten en de lengte naar de serial schrijven zodra de puls afgelopen is. Doe dan hetzelfde voor de afwezigheid van de puls, en blijf dit herhalen. Je krijgt dan dus een patroon te zien van hoe lang de HIGH heeft geduurd, hoe lang de LOW heeft geduurd, etc. Doe je metingen in microseconden, want de pulsjes duren heel kort.*
+
+*Test je programma door een aantal keer dezelfde knop op de afstandsbediening te gebruiken en bekijk of het in de Serial geprinte resultaat steeds (ongeveer) hetzelfde is.*
+
+Schema:
+![Opdracht 3 fritzing schema](opdracht-3/schema.png)
+
+Werking:
+![Opdracht 3 gif](TODO)
