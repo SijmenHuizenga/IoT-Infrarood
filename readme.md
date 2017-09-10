@@ -1,4 +1,4 @@
-#IoT Infrarood
+# IoT Infrarood
 
 Deze infroarood opdracht hoort bij het vak Things tijdens het semester Internet of Things bij de Hogeschool Arnhem Nijmegen. Hierbij de uitwerkingen.
 
@@ -79,3 +79,61 @@ Schema:
 
 Werking:
 ![Opdracht 3 gif](TODO)
+
+## Opdracht 4: Onderzoek hoe lang een print naar Serial duurt
+*Schrijf een (nieuw) programma waarmee je, onafhankelijk van de IR-opdracht, meet hoe lang het eigenlijk gemiddeld duurt om een print naar Serial te doen. Let op: het “opstarten” van de Serial (Serial.begin()) kost wat tijd. Geef je programma die tijd (met een delay van bijvoorbeeld 250ms in de setup) en start daarna pas je metingen.*
+*Herhaal (ook bij de volgende opgaven) alle metingen een aantal keer: noteer de gemiddelden en de standaarddeviatie, en doe je metingen niet in milliseconden, maar in microseconden. Houd er ook rekening mee dat een actie soms zo kort duurt dat het weinig nut heeft om een enkele uitvoer te meten: herhaal de actie dan bijvoorbeeld 1000 keer, en deel het resultaat door 1000. Doe dit meerdere keren om de standaarddeviatie te kunnen bepalen.*
+
+Ik verwacht dat de langere tekstlengte, lage baudrate en de toevoeging van een newline allemaal de snelheid verlagen. Verder verwacht ik dat de sneleheid van printen rond de 1 a 2 milliseconde zal zitten.
+
+Test 1 test alle combinaties van verschillende baudrate's, teskstlengtes en printmethods. Hierbij wordt voor de korte tekst de letter `a` gebruikt en voor de lange tekst de volgende letterreeks: `aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==`. Na elke testronde wordt de serial geflusht zodat alle data verzonden is. Verder wordt bij elke `Serial.begin()` de uitvoertijd van deze methode gemeten. De resultaten zijn:
+
+| method | textsize | baudrate | average over 100 calls in micros |
+| ------ | -------- | -------- | ---------------------- |
+| println | short | 2400   | 12495 |
+| println | short | 9600   | 3120 |
+| println | short | 57600  | 510 |
+| println | short | 115200 | 255 |
+| println | long  | 2400   | 258230 |
+| println | long  | 9600   | 64480 |
+| println | long  | 57600  | 10540 |
+| println | long  | 115200 | 5270 |
+| print   | short | 2400   | 4165 |
+| print   | short | 9600   | 1040 |
+| print   | short | 57600  | 170 |
+| print   | short | 115200 | 85 |
+| print   | long  | 2400   | 249900 |
+| print   | long  | 9600   | 62400 |
+| print   | long  | 57600  | 10200 |
+| print   | long  | 115200 | 5100 |
+`Average time Serail.begin() over 16 runs is 945 micros`
+
+### Maakt het uit hoeveel tekst je naar Serial stuurt?
+Gemiddeld duren alle tests met lange teksten 83.265 milliseconden en gemiddeld alle korte teksten 2.730 milliseconden. Conclusie is dus dat de hoeveelheid tekst wel degelijk invloed heeft op de snelheid van berichten.
+
+Wat interesant is is dat de lange tekst van 60 karakters per karakter 1.38775 ms duurde, terwijl de korte tekst met 1 karakter 2.730 milliseconde duurde. Het is dus efficienter om langere berichten te sturen in plaats van meerdere korte berichten.
+
+### Kost het schrijven van een newline extra tijd?
+Gemiddeld duren alle tests met de print methode 4.1632 ms en gemiddeld alle println methodes 4.43625 ms. De toevoeging van println zorgt dus voor een iets langere berichttijd. 
+
+### Maakt de baudrate uit?
+
+De gemiddelde baud rates per berichten zijn als volgt:
+
+| baud rate | average message time in ms |
+| ---- | -------- |
+| 2400 | 131.1975 |
+| 9600 | 32.760 |	
+| 57600 | 5.355 |	
+| 115200  | 2.6775 |
+
+Een hogere baud rate zorgt dus voor een sneller berichtoverdracht.
+
+### Maakt het uit of je Serial venster open staat (hint: om de metingen te kunnen inzien kun je het EEPROM-geheugen en een extra programma gebruiken)?
+Deze test wordt uitgevoerd in test2.cpp. Zie `opdracht-4/test2/readme.txt` om meer over de werking van de test te lezen. De test gebruikt println, 60 karakter berichten en baudrate 9600. De connected test kostte dit 64.480 ms per bericht. De nieuwe niet-verbonden test kostte 64.480 ms per bericht. Dit is ongelofelijk precies gelijk, maar ook na herhaling van de test blijft dit getal gelijk. Er is dus geen verschil of de serial monitor aan of uit staat.
+
+### Hierboven staat dat het opstarten van de Serial tijd kost. Is dat eigenlijk wel waar, en hoeveel tijd is dat dan?
+Ja, het opstarten van Serial kost tijd, maar niet zo veel tijd. Om precies te zijn 0.945 ms zoals te zien is in de resultaten van test1.
+
+### Conclusie
+Met de standaard baudrate van 9600 is de snelheid van een 1-karakter bericht 2.080 ms. Bij de langere berichten van 60 karakters is dit 63.44 ms. Ik had verwacht dat alle berichten gemiddeld rond de 2 ms zouden zitten. Dit blijkt dus wel een stuk hoger te zijn. Ik neem hiervan mee dat ik voortaan beter een hogere baudrate kan gebruiken.
