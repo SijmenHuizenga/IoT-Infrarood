@@ -5,5 +5,5 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories("library")
 
-set(SOURCE_FILES opdracht-1/main.cpp)
+set(SOURCE_FILES opdracht-2/main.cpp)
 add_executable(iotir ${SOURCE_FILES})

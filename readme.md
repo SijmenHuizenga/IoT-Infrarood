@@ -57,6 +57,12 @@ De afstandsbediening is dom in de zin dat hij bij een ingedrukte knop continu he
 ## Opdracht 2: Opdracht 2Aansluiten en testen
 *Sluit de IR-sensor aan en voeg een ledje (met voor jou zichtbaar licht) toe. Schrijf een testprogramma dat het ledje aan laat gaan zodra er een IR-signaal binnenkomt, en weer uit zodra er (na een korte wachttijd) weer een IR-signaal binnenkomt. Als je klaar bent, kun je het ledje met een willekeurige druk op de afstandsbediening toggelen.*
 
+Schema:
+![Opdracht 2 fritzing schema](opdracht-2/schema.png)
+
+Werking:
+![Opdracht 2 gif](TODO)
+
 ### Geeft de sensor “HIGH” bij het ontvangen van een signaal of juist bij afwezigheid ervan?
 De sensor geeft een HIGH signiaal wanneer er geen infraroodsigniaal wordt ontvangen.
 
