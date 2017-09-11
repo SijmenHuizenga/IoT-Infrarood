@@ -61,13 +61,13 @@ Schema:
 ![Opdracht 2 fritzing schema](opdracht-2/schema.png)
 
 Werking:
-![Opdracht 2 gif](TODO)
+![Opdracht 2 gif](opdracht-2/result.gif)
 
 ### Geeft de sensor “HIGH” bij het ontvangen van een signaal of juist bij afwezigheid ervan?
-De sensor geeft een HIGH signiaal wanneer er geen infraroodsigniaal wordt ontvangen.
+De sensor geeft een LOW signiaal wanneer er geen infraroodsigniaal wordt ontvangen.
 
 ### Wat is de minimale wachttijd die je nodig hebt om te voorkomen dat het ledje gaat knipperen? Wat betekent dat?
-TODO
+Een delay van 99 ms zorgt ervoor dat hij 'het doet' met mijn eigen afstandsbediening en die van school. Dit betekent dat als een knop is ingedrukt bij beide afstandsbedieningen er binnen 99 ms een infrarood signiaal wordt ontvangen. 
 
 ## Opdracht 3: Code opvangen met digitalRead
 *Schrijf een (nieuw) programma dat in de loop steeds een digitalRead op de IR-poort uitvoert. Laat het programma de lengte van een puls meten en de lengte naar de serial schrijven zodra de puls afgelopen is. Doe dan hetzelfde voor de afwezigheid van de puls, en blijf dit herhalen. Je krijgt dan dus een patroon te zien van hoe lang de HIGH heeft geduurd, hoe lang de LOW heeft geduurd, etc. Doe je metingen in microseconden, want de pulsjes duren heel kort.*

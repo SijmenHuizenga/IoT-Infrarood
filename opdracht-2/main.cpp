@@ -3,17 +3,48 @@
 #define IRPIN 5
 #define LEDPIN 4
 
-bool toggle;
+bool ledOn = false;
+bool irOn = false;
 
 void setup() {
     pinMode(IRPIN, INPUT);
     pinMode(LEDPIN, OUTPUT);
 }
 
+bool isIrOn(){
+    unsigned long start = millis();
+
+    while((millis() - start) < 99){
+        if(digitalRead(IRPIN) == LOW)
+            return true;
+    }
+    return false;
+}
+
+void switchLed(){
+    ledOn = !ledOn;
+    digitalWrite(LEDPIN, ledOn ? 1 : 0);
+}
+
 void loop(){
-    if(digitalRead(IRPIN) == HIGH){
-        toggle = !toggle;
-        digitalWrite(LEDPIN, toggle ? 1 : 0);
-        delay(1000);
+    bool actualIrOn = isIrOn();
+    if(!irOn && actualIrOn){
+        irOn = true;
+        switchLed();
+    }else if(irOn && !actualIrOn){
+        irOn = false;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
