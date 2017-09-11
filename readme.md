@@ -74,11 +74,30 @@ Een delay van 99 ms zorgt ervoor dat hij 'het doet' met mijn eigen afstandsbedie
 
 *Test je programma door een aantal keer dezelfde knop op de afstandsbediening te gebruiken en bekijk of het in de Serial geprinte resultaat steeds (ongeveer) hetzelfde is.*
 
+Het resultaat van drie keer een druk op de aan/uit knop op de afstandsbediening:
+
+| test 1      | test 2      | test 3         |
+| ----------- | ----------- | -------------- |
+| on 26039812 | on 8349040  | on for 8545292 |
+| of 8824     | of 8832     | of for 8868 |
+| on 4072     | on 4096     | on for 4032 |
+| of 288      | of 292      | of for 324 |
+| on 12       | on 8        | on for 12 |
+| of 12       | of 8        | of for 8 |
+| on 20       | on 884      | on for 12 |
+| of 12       | of 8        | of for 12 |
+| on 6364     | on 9500     | |
+| of 12       | of 8        | |
+
+Elke keer is het pattroon soort van gelijk, maar er zitten best grote verschillen tussen. Te grote verschillen om een knop te kunnen herkennen.
+
 Schema:
+
 ![Opdracht 3 fritzing schema](opdracht-3/schema.png)
 
 Werking:
-![Opdracht 3 gif](TODO)
+
+![Opdracht 3 gif](opdracht-3/result.gif)
 
 ## Opdracht 4: Onderzoek hoe lang een print naar Serial duurt
 *Schrijf een (nieuw) programma waarmee je, onafhankelijk van de IR-opdracht, meet hoe lang het eigenlijk gemiddeld duurt om een print naar Serial te doen. Let op: het “opstarten” van de Serial (Serial.begin()) kost wat tijd. Geef je programma die tijd (met een delay van bijvoorbeeld 250ms in de setup) en start daarna pas je metingen.*
