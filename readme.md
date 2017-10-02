@@ -156,3 +156,21 @@ Ja, het opstarten van Serial kost tijd, maar niet zo veel tijd. Om precies te zi
 
 ### Conclusie
 Met de standaard baudrate van 9600 is de snelheid van een 1-karakter bericht 2.080 ms. Bij de langere berichten van 60 karakters is dit 63.44 ms. Ik had verwacht dat alle berichten gemiddeld rond de 2 ms zouden zitten. Dit blijkt dus wel een stuk hoger te zijn. Ik neem hiervan mee dat ik voortaan beter een hogere baudrate kan gebruiken.
+
+
+## Opdracht 5: Introduceer buffer met malloc en realloc
+*Het zou kunnen dat je metingen beïnvloed worden door het steeds printen naar de Serial (het printen kost immers tijd). Om dit uit te sluiten, gaan we pas printen zodra er een bepaalde tijd (zie Opdracht 2:) geen wijziging meer is ontvangen in de puls: de code is dan afgelopen. Uiteraard moeten de metingen wel opgeslagen worden. Doe dit in een dynamisch (niet-circulair) buffer waarbij je steeds als er een waarde wordt toegevoegd, de grootte van de buffer aanpast. Zodra de code is afgelopen en de waarden zijn geprint, verklein je de buffer weer naar 0 bytes. Schrijf een nieuw programma dat dit doet. Je mag de aan-/uit-tijden gewoon achter elkaar in 1 int-buffer zetten. Je krijgt dan dus weer een patroon van HIGH- en LOW-waarden na elkaar, maar kunt in de buffer niet zien welke LOW en HIGH worden (omdat een signaal altijd met een HIGH of LOW begint, kun je dat als het goed is echter wel afleiden als je wil).*
+
+[Het testprogramma](opdracht-5/main.cpp) bevat het programma zoals hierboven beschreven. Het resultaat weergegeven in een grafiekje is hieronder te zien. 
+
+![Opdracht 4 graph](opdracht-5/result.png)
+
+In deze grafiek staat op de y ass de periode in microseconden en op de x ass het aantal perioden. 
+
+Dit is een succesvol resultaat omdat te zien is dat twee verschillende knoppen de zelfde beginstructuur hebben. Dit is in lijn met de verwachtingen dat alle signialen van de afstandbediening allemaal beginnen met een aparaatcode die voor elke knop gelijk is.
+
+### Wat gebeurt er als je heel snel achter elkaar op een knop van de afstandsbediening blijft drukken?
+Een korter siginiaal herhaalt zich. Hieronder een grafiek van dit signiaal nadat de het initiele siginaal zoals hierboven is afgelopen
+
+![Opdracht 4 graph2](opdracht-5/repeatingresult.png)
+

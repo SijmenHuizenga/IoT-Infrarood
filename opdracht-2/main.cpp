@@ -11,6 +11,7 @@ void setup() {
     pinMode(LEDPIN, OUTPUT);
 }
 
+//wait for 99 ms if the ir pin is low. Returns true if low, else false.
 bool isIrOn(){
     unsigned long start = millis();
 
