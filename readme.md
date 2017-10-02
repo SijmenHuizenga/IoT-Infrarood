@@ -174,3 +174,63 @@ Een korter siginiaal herhaalt zich. Hieronder een grafiek van dit signiaal nadat
 
 ![Opdracht 4 graph2](opdracht-5/repeatingresult.png)
 
+## Opdracht 6: Opdracht 6Onderzoek hoe lang malloc, realloc en free duren
+*Schrijf een nieuw programma om te meten hoe lang een malloc, realloc en free duren. Beantwoord daarbij in elk geval de volgende vragen en noteer de waarden (uiteraard moet je alle metingen een aantal keer herhalen: noteer de gemiddelden en de spreiding):*
+
+[Testprogramma 5](opdracht-5/main.cpp) bevat een aantal tests. De resultaten van deze tests zijn hieronder weergegeven.
+```
+A: Gemiddelde tijd dat het kost om 50 bytes te alloceren over een gemiddelde van 1000 tests is 3 microseconden.
+B: Gemiddelde tijd dat het kost om 150 bytes te alloceren over een gemiddelde van 1000 tests is 3 microseconden.
+C: Gemiddelde tijd dat het kost om 1 byte te reloccen naar 150 bytes terwijl er verder niks speciaals is gealloceerd over een gemiddelde van 1000 tests is 14 microseconden.
+D: Gemiddelde tijd dat het kost om 1 byte te reloccen naar 150 bytes terwijl er verder al 150 bytes gealloceerd zijn over een gemiddelde van 1000 tests is 14 microseconden.
+E: Gemiddelde tijd dat het kost om 1 byte te reloccen naar 50 bytes terwijl er verder niks speciaals is gealloceerd over een gemiddelde van 1000 tests is 14 microseconden.
+F: Gemiddelde tijd dat het kost om 150 bytes te reloccen naar 1 byte terwijl er verder niks speciaals is gealloceerd over een gemiddelde van 1000 tests is 16 microseconden.
+G: Gemiddelde tijd dat het kost om 50 bytes te calloc-en over een gemiddelde van 1000 tests is 3 microseconden.
+H: Gemiddelde tijd dat het kost om 50 bytes te alloceren en daarna handmatige te initaliseren  over een gemiddelde van 1000 tests is 34 microseconden.
+I: Gemiddelde tijd dat het kost om 50 bytes te free-en over een gemiddelde van 1000 tests is 3 microseconden.
+I: Gemiddelde tijd dat het kost om 5 bytes te free-en over een gemiddelde van 1000 tests is 3 microseconden.
+```
+Alle onderstaande vragen worden beantwoord met data uit bovenstaande testresultaten.
+
+*A: Hoe lang duurt een malloc?*
+
+3 microseconden
+
+
+*B: Maakt het uit hoeveel geheugen je alloceert?*
+
+Nee. Voor 50 en 150 bytes is de tijd het zelfde.
+
+*C: Hoe lang duurt een realloc?*
+
+14 microseconden
+
+
+*D: Maakt het uit hoeveel geheugen er al gereserveerd was?*
+
+Nee. Bij de tests waarbij er extra geheugen van te voren gealloceerd was is geen verschil in tijd te zien.
+
+
+*E: Maakt het uit hoeveel geheugen je extra alloceert?*
+
+Nee. Van 1 naar 150 en van 1 naar 50 kost beide 14 microseconden.
+
+
+*F: En is er verschil tussen het vergroten of juist verkleinen van de gealloceerde geheugenruimte?*
+
+Ja. Realloc van 150 naar 1 byte kost gemiddeld 16 microseconden terwijl realloc van 1 byte naar 150 bytes iets sneller is met 14 microseconden.
+
+
+*G: In de slides werd gezegd dat calloc langer duurt dan malloc. Is dat eigenlijk wel waar?*
+
+Nee. Beide zijn even snel.
+
+
+*H: Is “handmatig” initialiseren van de waarden na een malloc sneller of langzamer dan een calloc?*
+
+Langzamer. Calloc kost 3 microseconden voor het alloceren en initialiseren van 50 bytes en malloc+handmatige initalizatie kost 34 microseconden.
+
+
+*I: Maakt het voor een free uit hoeveel geheugen er gealloceerd was?*
+
+Nee. Het vrijgeven van 5 bytes tegenover 50 byte gaat even snel.

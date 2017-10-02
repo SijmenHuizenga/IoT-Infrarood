@@ -1,5 +1,5 @@
 out
-library/Arduino.h
+library
 cmake-build-debug
 .idea
 CMakeLists.txt
