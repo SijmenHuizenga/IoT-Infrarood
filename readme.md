@@ -234,3 +234,12 @@ Langzamer. Calloc kost 3 microseconden voor het alloceren en initialiseren van 5
 *I: Maakt het voor een free uit hoeveel geheugen er gealloceerd was?*
 
 Nee. Het vrijgeven van 5 bytes tegenover 50 byte gaat even snel.
+
+
+## Opdracht 7: Gebruik een circulair buffer
+*Ook realloc en malloc kunnen de metingen beïnvloed hebben (die kosten immers tijd). Om dat uit te sluiten, gaan we gebruik maken van een circulair buffer dat realtime niet aangepast hoeft te worden. Doe hetzelfde als bij Opdracht 5:, maar maak gebruik van een circulair buffer waarvan de grootte compile-time bepaald is. Schrijf hiervoor een nieuw programma. Hoe groot moet je buffer minimaal zijn om geen gegevens kwijt te raken? Sla wederom zowel LOW- als HIGH-waarden op, achter elkaar, in microseconden.*
+
+De uitwerkingen zijn [hier](opdracht-7) te vinden. De resultaat output zijn qua structuur gelijk aan die van opdracht 5, al zijn de specefieke getallen net iets anders. Op dit moment heb ik nog niet genoeg informatie om te kunnen zeggen of deze implementatie ook daadwerkelijk accurater is dan die van opdracht 5. 
+
+De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstandsbediening maximaal dit aantal verschillende lengte pulsen verstuurd. 
+
