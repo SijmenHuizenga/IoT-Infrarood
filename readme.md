@@ -169,9 +169,13 @@ Het resultaat weergegeven in een grafiekje is hieronder te zien.
 
 ![Opdracht 4 graph](opdracht-5/result.png)
 
-In deze grafiek staat op de y ass de periode in microseconden en op de x ass het aantal perioden. 
+In deze grafiek staat op de y ass de periode in microseconden en op de x ass het aantal perioden. De oranje en blauwe lijn representeren de output van twee verschillende knoppen.
 
 Dit is een succesvol resultaat omdat te zien is dat twee verschillende knoppen de zelfde beginstructuur hebben. Dit is in lijn met de verwachtingen dat alle signialen van de afstandbediening allemaal beginnen met een aparaatcode die voor elke knop gelijk is.
+
+In [testdata.csv](opdracht-5/testdata.csv) zijn vijf metingen te vinden van het indrukken van de aan/uit knop op de afstandsbediening. Hierin is elke kolom de output van [het testprogramma](opdracht-5/main.cpp) na de druk op een knop. Per regel kan de standaardafwijking worden berekend om te onderzoeken hoe constant de waarden tussen test zijn. Het resultaat is een set van standaardafwijkingen per periode aan of uit. Dit is gedaan in [meetanalyse.xlsx](meetanalyse.xlsx). 
+
+Vervolgens kan van de set standaardafwijking een gemiddelde worden berekend. Hiermee wordt de constantiteit van de metingen weergegeven. Constante metingen zijn belangrijk om signialen van elkaar te kunnen herkennen. Een kleinere afweiking van het gemiddelde hoe exacter de waarden van elkaar kunnen worden onderscheiden. Het gemiddelde van de standaardafwijkign is 9.57. Dit geeft aan dat gemiddeld meetwaarden 9.57 microseconden van elkaar verschillen tussen tests. In volgende opdrachten zal deze bereking opnieuw worden gedaan om verschillende uitwekringen met elkaar te kunnen vergelijken.
 
 ### Wat gebeurt er als je heel snel achter elkaar op een knop van de afstandsbediening blijft drukken?
 Een korter siginiaal herhaalt zich. Hieronder een grafiek van dit signiaal nadat de het initiele siginaal zoals hierboven is afgelopen
