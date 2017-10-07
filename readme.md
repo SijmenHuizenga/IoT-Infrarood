@@ -243,3 +243,39 @@ De uitwerkingen zijn [hier](opdracht-7) te vinden. De resultaat output zijn qua 
 
 De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstandsbediening maximaal dit aantal verschillende lengte pulsen verstuurd. 
 
+## Opdracht 8: Maak gebruik van interrupts
+*Misschien beïnvloedt digitalRead de metingen ook wel. Schrijf een nieuw programma gebaseerd op opgave 7, waarbij je geen digitalRead meer gebruikt, maar interrupts (op zowel wijziging naar “hoog” als naar “laag”).*  
+*Let op: omdat Serial ook gebruik maakt van interrupts, kun je problemen krijgen (deadlocks) als je de Serial gebruikt in je eigen interruptfunctie. Laat het testen of er voldoende tijd verstreken is en het printen van de buffer dus buiten de interruptfunctie gebeuren.*
+
+## Opdracht 9: Lees de ruwe pin-data
+Een andere manier om om digitalRead heen te werken, is het uitlezen van de ruwe pin-data. DigitalRead doet dat ook, maar bevat wat overhead die je nu niet kunt gebruiken.
+
+Lees de toelichting op http://www.arduino.cc/en/Reference/PortManipulation
+
+Gebruik de volgende code, waarbij je moet zorgen dat IRpin_PIN de poort bevat, en IRpin het (hardwarematige) poortnummer zoals je dat kunt vinden op http://arduino.cc/en/Hacking/PinMapping168. Gebruik je digitale pin 2 van je Arduino Uno, dan zijn de waarden respectievelijk PIND en 2. Let op: Het gebruik van digitale pinnen 0 en 1 is over het algemeen geen goed idee, maar als je ze op deze manier aanspreekt, is het zeker onverstandig.
+
+In de setup:
+```
+DDRB = 0xFF;
+DDRD &= ~(1 << IRpin);
+```
+
+Elders in je programma (geeft een int terug): ```(IRpin_PIN & (1 << IRpin))```
+
+Schrijf een nieuw programma, gebaseerd op je code bij Opdracht 7:, waarbij je bovenstaande constructie gebruikt.
+
+## Opdracht 10: Vertraagde afstandsbediening
+Sluit een infrarood-led en een knop aan op je Arduino en breid je programma zo uit (maak eerst een kopie) dat het in de buffer opgeslagen signaal op de IR-led wordt afgespeeld op het moment dat je op de knop drukt.
+
+Test het programma door een signaal te laten afspelen vlakbij het apparaat waarbij de afstandsbediening hoort (tv, dvd-speler). Als het werkt, weet je zeker dat je het goed hebt gedaan. Werkt het niet, dan kan er iets mis zijn met je programma, maar het kan ook zo zijn dat de golflengte van de IR-led niet dezelfde is van je afstandsbediening en dat de ontvanger in je tv gevoelig is. Je kunt het dan nog met een andere apparaat proberen.
+
+Alternatief is dat je het opgeslagen signaal met een factor 10 of 100 vertraagd laat afspelen op een zichtbare led. Dat is minder leuk, maar geeft wel een mooie lichtshow ;-)
+
+
+## Opdracht 11: Lampen schakelen met je afstandsbediening
+Deze laatste opdracht mag je samen met je practicumpartner doen (zorg wel dat je allebei het software-ontwerp en de software inlevert!). Ook de verplichte demonstratie mag je samen doen. Je mag zelf kiezen van wie je de IR-code als basis gebruikt.
+
+Sluit (minimaal) drie ledlampjes aan op je Arduino en zorg ervoor dat je die kunt aan- en uitzetten met de knoppen 1, 2 en 3 op je afstandsbediening. Daarnaast moet er een knop zijn waarmee je ineens alle ledjes kunt aan- en uitzetten.
+
+Tips om het onderscheid tussen de knoppen te maken, vind je in de Powerpoint “IR-signaal lezen” op #OnderwijsOnline.
+
