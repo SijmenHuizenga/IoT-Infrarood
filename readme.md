@@ -161,7 +161,11 @@ Met de standaard baudrate van 9600 is de snelheid van een 1-karakter bericht 2.0
 ## Opdracht 5: Introduceer buffer met malloc en realloc
 *Het zou kunnen dat je metingen beïnvloed worden door het steeds printen naar de Serial (het printen kost immers tijd). Om dit uit te sluiten, gaan we pas printen zodra er een bepaalde tijd (zie Opdracht 2:) geen wijziging meer is ontvangen in de puls: de code is dan afgelopen. Uiteraard moeten de metingen wel opgeslagen worden. Doe dit in een dynamisch (niet-circulair) buffer waarbij je steeds als er een waarde wordt toegevoegd, de grootte van de buffer aanpast. Zodra de code is afgelopen en de waarden zijn geprint, verklein je de buffer weer naar 0 bytes. Schrijf een nieuw programma dat dit doet. Je mag de aan-/uit-tijden gewoon achter elkaar in 1 int-buffer zetten. Je krijgt dan dus weer een patroon van HIGH- en LOW-waarden na elkaar, maar kunt in de buffer niet zien welke LOW en HIGH worden (omdat een signaal altijd met een HIGH of LOW begint, kun je dat als het goed is echter wel afleiden als je wil).*
 
-[Het testprogramma](opdracht-5/main.cpp) bevat het programma zoals hierboven beschreven. Het resultaat weergegeven in een grafiekje is hieronder te zien. 
+[Het testprogramma](opdracht-5/main.cpp) bevat het programma zoals hierboven beschreven. De testopstelling is als volgt:
+
+![Opdracht 5 fritzing schema](opdracht-5/schema.png)
+
+Het resultaat weergegeven in een grafiekje is hieronder te zien. 
 
 ![Opdracht 4 graph](opdracht-5/result.png)
 
@@ -174,7 +178,7 @@ Een korter siginiaal herhaalt zich. Hieronder een grafiek van dit signiaal nadat
 
 ![Opdracht 4 graph2](opdracht-5/repeatingresult.png)
 
-## Opdracht 6: Opdracht 6Onderzoek hoe lang malloc, realloc en free duren
+## Opdracht 6: onderzoek hoe lang malloc, realloc en free duren
 *Schrijf een nieuw programma om te meten hoe lang een malloc, realloc en free duren. Beantwoord daarbij in elk geval de volgende vragen en noteer de waarden (uiteraard moet je alle metingen een aantal keer herhalen: noteer de gemiddelden en de spreiding):*
 
 [Testprogramma 5](opdracht-5/main.cpp) bevat een aantal tests. De resultaten van deze tests zijn hieronder weergegeven.
@@ -239,7 +243,11 @@ Nee. Het vrijgeven van 5 bytes tegenover 50 byte gaat even snel.
 ## Opdracht 7: Gebruik een circulair buffer
 *Ook realloc en malloc kunnen de metingen beïnvloed hebben (die kosten immers tijd). Om dat uit te sluiten, gaan we gebruik maken van een circulair buffer dat realtime niet aangepast hoeft te worden. Doe hetzelfde als bij Opdracht 5:, maar maak gebruik van een circulair buffer waarvan de grootte compile-time bepaald is. Schrijf hiervoor een nieuw programma. Hoe groot moet je buffer minimaal zijn om geen gegevens kwijt te raken? Sla wederom zowel LOW- als HIGH-waarden op, achter elkaar, in microseconden.*
 
-De uitwerkingen zijn [hier](opdracht-7) te vinden. De resultaat output zijn qua structuur gelijk aan die van opdracht 5, al zijn de specefieke getallen net iets anders. Op dit moment heb ik nog niet genoeg informatie om te kunnen zeggen of deze implementatie ook daadwerkelijk accurater is dan die van opdracht 5. 
+De uitwerkingen zijn [hier](opdracht-7) te vinden. De testopstelling is als volgt:
+                                                   
+![Opdracht 7 fritzing schema](opdracht-7/schema.png)
+
+De resultaat output zijn qua structuur gelijk aan die van opdracht 5, al zijn de specefieke getallen net iets anders. Op dit moment heb ik nog niet genoeg informatie om te kunnen zeggen of deze implementatie ook daadwerkelijk accurater is dan die van opdracht 5. 
 
 De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstandsbediening maximaal dit aantal verschillende lengte pulsen verstuurd. 
 
