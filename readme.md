@@ -157,6 +157,22 @@ Ja, het opstarten van Serial kost tijd, maar niet zo veel tijd. Om precies te zi
 ### Conclusie
 Met de standaard baudrate van 9600 is de snelheid van een 1-karakter bericht 2.080 ms. Bij de langere berichten van 60 karakters is dit 63.44 ms. Ik had verwacht dat alle berichten gemiddeld rond de 2 ms zouden zitten. Dit blijkt dus wel een stuk hoger te zijn. Ik neem hiervan mee dat ik voortaan beter een hogere baudrate kan gebruiken.
 
+## Technische Beoordeling Opstellingen
+In de komende opdrachten (5, 7, 8 en 9) worden vier verschillende opstellingen gebouwd om de periode aan/uit van een infraroodsigniaal te ontvangen. Om deze verschillende opstellingen te kunnen vergelijken heb ik een experiment ontworpen waarmee de opstellingen met elkaar kunnen worden vergeleken. In dit hoofdstuk wordt dit experiment uiteengezet.
+
+In een idealse situatie zouden de meetwaarden aan de infraroodsensor bij twee keer indrukken van de zelfde knop exact gelijk zijn. Er zijn helaas te veel factoren die invloed hebben op de meetdata dat het praktisch onmogelijk is dit te bereiken. Door per opstelling vijf keer de zelfde knop op de afstandsbediening in te drukken, en te noteren wat de uitvoer is kan worden gerekend aan de verschillende opstellingen. Met deze meetwaarden worden een aantal feiten berekend die gebruikt kunnen worden om de opstellingen te vergelijken. Alle berekeningen worden gedaan in [meetanalyse.xlsx](meetanalyse.xlsx).
+
+Bij deze beoordeling wordt de correctheid van de meting niet meegenomen. Als er constant een incorrect signiaal wordt gemeten, maar dit signiaal is wel uniek genoeg om de knop te kunnen herkennen dan is dit voldoende. Een inconsistente opstelling waarbij soms een correct signiaal wordt gemeten, maar soms ook een heel ander signiaal wordt gemeten bij de zelfde afstandsbediening knop is minder wenselijk. Vandaar dat bij de beoordeling van opstellingen naar consistentie wordt gekeken.
+
+### Afwijking in resultaten 
+De afwijking in resultaten tussen verschillende tests van belang. Als de eerste 'uit' periode van een infraroodsigniaal de ene keer 500 microseconden en duurt de volgende keer 800 microseconden, dan is de opstelling minder nauwkeurig dan dat er de tweede keer 505 microseconden wordt gemeten.
+
+Om tot een beoordeling te komen moet per periode die door de arduino wordt geregistreerd als 'ir aan' of 'ir uit' een standaardafwijking berekend worden. Door het gemiddelde te berekenen van deze standaardafwijkingen wordt de gemiddelde afwijking in resultaten gevonden. Dit getal kan worden gebruikt om de verschillende opstellingen te vergelijken.
+
+### Consistentie afwijking
+Ten tweede moet worden gekeken in hoeverre de opstelling constant is. Als het programma elke 3e meting ineens extra tijd nodig heeft dan worden er inconsistente metingen gedaan. Als de eerste 'uit' periode van een infraroodsigniaal steeds erg consistent wordt gemeten, maar het volgende 'aan' signiaal wordt relatief vaak inconsistent gemeten dan is een teken van inconsistentie. 
+
+Om tot een beoordeling te komen moet per periode die door de arduino wordt geregistreerd als 'ir aan' of 'ir uit' een standaardafwijking berekend worden. Op deze set van standaardafwijkingen moet opnieuw een standaardafwijking worden gedaan om tot de consistentie van de afwijkingen te komen. Dit getal kan worden gebruikt om de verschillende opstellingen te vergelijken.
 
 ## Opdracht 5: Introduceer buffer met malloc en realloc
 *Het zou kunnen dat je metingen beïnvloed worden door het steeds printen naar de Serial (het printen kost immers tijd). Om dit uit te sluiten, gaan we pas printen zodra er een bepaalde tijd (zie Opdracht 2:) geen wijziging meer is ontvangen in de puls: de code is dan afgelopen. Uiteraard moeten de metingen wel opgeslagen worden. Doe dit in een dynamisch (niet-circulair) buffer waarbij je steeds als er een waarde wordt toegevoegd, de grootte van de buffer aanpast. Zodra de code is afgelopen en de waarden zijn geprint, verklein je de buffer weer naar 0 bytes. Schrijf een nieuw programma dat dit doet. Je mag de aan-/uit-tijden gewoon achter elkaar in 1 int-buffer zetten. Je krijgt dan dus weer een patroon van HIGH- en LOW-waarden na elkaar, maar kunt in de buffer niet zien welke LOW en HIGH worden (omdat een signaal altijd met een HIGH of LOW begint, kun je dat als het goed is echter wel afleiden als je wil).*
@@ -173,9 +189,13 @@ In deze grafiek staat op de y ass de periode in microseconden en op de x ass het
 
 Dit is een succesvol resultaat omdat te zien is dat twee verschillende knoppen de zelfde beginstructuur hebben. Dit is in lijn met de verwachtingen dat alle signialen van de afstandbediening allemaal beginnen met een aparaatcode die voor elke knop gelijk is.
 
-In [testdata.csv](opdracht-5/testdata.csv) zijn vijf metingen te vinden van het indrukken van de aan/uit knop op de afstandsbediening. Hierin is elke kolom de output van [het testprogramma](opdracht-5/main.cpp) na de druk op een knop. Per regel kan de standaardafwijking worden berekend om te onderzoeken hoe constant de waarden tussen test zijn. Het resultaat is een set van standaardafwijkingen per periode aan of uit. Dit is gedaan in [meetanalyse.xlsx](meetanalyse.xlsx). 
-
-Vervolgens kan van de set standaardafwijking een gemiddelde worden berekend. Hiermee wordt de constantiteit van de metingen weergegeven. Constante metingen zijn belangrijk om signialen van elkaar te kunnen herkennen. Een kleinere afweiking van het gemiddelde hoe exacter de waarden van elkaar kunnen worden onderscheiden. Het gemiddelde van de standaardafwijkign is 9.57. Dit geeft aan dat gemiddeld meetwaarden 9.57 microseconden van elkaar verschillen tussen tests. In volgende opdrachten zal deze bereking opnieuw worden gedaan om verschillende uitwekringen met elkaar te kunnen vergelijken.
+### Technische Beoordeling Opstellingen
+| | |
+| ---- | --- |
+| Code | [opdracht-5/main.cpp](opdracht-5/main.cpp) |
+| Meetgegevens | [opdracht-5/testdata.csv](opdracht-5/testdata.csv) |
+| Afwijking in resultaten | 9.96 |
+| Consistentie afwijking | 12.23 |
 
 ### Wat gebeurt er als je heel snel achter elkaar op een knop van de afstandsbediening blijft drukken?
 Een korter siginiaal herhaalt zich. Hieronder een grafiek van dit signiaal nadat de het initiele siginaal zoals hierboven is afgelopen
@@ -253,7 +273,15 @@ De uitwerkingen zijn [hier](opdracht-7) te vinden. De testopstelling is als volg
 
 De resultaat output zijn qua structuur gelijk aan die van opdracht 5, al zijn de specefieke getallen net iets anders. Op dit moment heb ik nog niet genoeg informatie om te kunnen zeggen of deze implementatie ook daadwerkelijk accurater is dan die van opdracht 5. 
 
-De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstandsbediening maximaal dit aantal verschillende lengte pulsen verstuurd. 
+De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstandsbediening maximaal dit aantal verschillende lengte pulsen verstuurd.
+
+### Technische Beoordeling Opstellingen
+| | |
+| ---- | --- |
+| Code | [opdracht-7/main.cpp](opdracht-5/main.cpp) |
+| Meetgegevens | [opdracht-7/testdata.csv](opdracht-5/testdata.csv) |
+| Afwijking in resultaten | 2.70 |
+| Consistentie afwijking | 5.71 |
 
 ## Opdracht 8: Maak gebruik van interrupts
 *Misschien beïnvloedt digitalRead de metingen ook wel. Schrijf een nieuw programma gebaseerd op opgave 7, waarbij je geen digitalRead meer gebruikt, maar interrupts (op zowel wijziging naar “hoog” als naar “laag”).*  
