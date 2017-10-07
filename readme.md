@@ -261,20 +261,11 @@ De uitwerking van deze opdracht is [hier](opdracht-8/main.cpp) te vinden. Het bi
 
 ## Opdracht 9: Lees de ruwe pin-data
 *Een andere manier om om digitalRead heen te werken, is het uitlezen van de ruwe pin-data. DigitalRead doet dat ook, maar bevat wat overhead die je nu niet kunt gebruiken.*
+* Schrijf een nieuw programma, gebaseerd op je code bij Opdracht 7:, waarbij je direct pinaansturing gebruikt.*
 
-Lees de toelichting op http://www.arduino.cc/en/Reference/PortManipulation
+De uitwerking van deze opdracht is [hier](opdracht-9/main.cpp) te vinden. Bijbehorden opstelling is als volgt:
 
-Gebruik de volgende code, waarbij je moet zorgen dat IRpin_PIN de poort bevat, en IRpin het (hardwarematige) poortnummer zoals je dat kunt vinden op http://arduino.cc/en/Hacking/PinMapping168. Gebruik je digitale pin 2 van je Arduino Uno, dan zijn de waarden respectievelijk PIND en 2. Let op: Het gebruik van digitale pinnen 0 en 1 is over het algemeen geen goed idee, maar als je ze op deze manier aanspreekt, is het zeker onverstandig.
-
-In de setup:
-```
-DDRB = 0xFF;
-DDRD &= ~(1 << IRpin);
-```
-
-Elders in je programma (geeft een int terug): ```(IRpin_PIN & (1 << IRpin))```
-
-Schrijf een nieuw programma, gebaseerd op je code bij Opdracht 7:, waarbij je bovenstaande constructie gebruikt.
+![opstelling opdracht 9](opdracht-9/schema.png)
 
 ## Opdracht 10: Vertraagde afstandsbediening
 Sluit een infrarood-led en een knop aan op je Arduino en breid je programma zo uit (maak eerst een kopie) dat het in de buffer opgeslagen signaal op de IR-led wordt afgespeeld op het moment dat je op de knop drukt.
