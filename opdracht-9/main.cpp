@@ -21,12 +21,8 @@ void setup() {
 }
 
 void printoutBuffer(){
-    bool high = true;
-    for(int i = 0; i < buffer.length(); i++){
-        Serial.println((high ? "Lo " : "Hi ") + String(buffer.get(i)));
-        high = !high;
-    }
-    Serial.println("=======================");
+    for(int i = 0; i < buffer.length(); i++)
+        Serial.println(buffer.get(i));
 }
 
 void loop(){
@@ -46,7 +42,7 @@ void loop(){
         lastMeasurement = now;
     }
     //more than 65 ms nothing than done
-    if(!buffer.empty() && (now-startMeasurement) > 100000){
+    if(!buffer.empty() && (now-startMeasurement) > 65530){
         printoutBuffer();
         buffer.clear();
     }

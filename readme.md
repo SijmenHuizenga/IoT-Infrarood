@@ -157,7 +157,7 @@ Ja, het opstarten van Serial kost tijd, maar niet zo veel tijd. Om precies te zi
 ### Conclusie
 Met de standaard baudrate van 9600 is de snelheid van een 1-karakter bericht 2.080 ms. Bij de langere berichten van 60 karakters is dit 63.44 ms. Ik had verwacht dat alle berichten gemiddeld rond de 2 ms zouden zitten. Dit blijkt dus wel een stuk hoger te zijn. Ik neem hiervan mee dat ik voortaan beter een hogere baudrate kan gebruiken.
 
-## Technische Beoordeling Opstellingen
+## Technische Beoordeling Opstellingen: Opzet
 In de komende opdrachten (5, 7, 8 en 9) worden vier verschillende opstellingen gebouwd om de periode aan/uit van een infraroodsigniaal te ontvangen. Om deze verschillende opstellingen te kunnen vergelijken heb ik een experiment ontworpen waarmee de opstellingen met elkaar kunnen worden vergeleken. In dit hoofdstuk wordt dit experiment uiteengezet.
 
 In een idealse situatie zouden de meetwaarden aan de infraroodsensor bij twee keer indrukken van de zelfde knop exact gelijk zijn. Er zijn helaas te veel factoren die invloed hebben op de meetdata dat het praktisch onmogelijk is dit te bereiken. Door per opstelling vijf keer de zelfde knop op de afstandsbediening in te drukken, en te noteren wat de uitvoer is kan worden gerekend aan de verschillende opstellingen. Met deze meetwaarden worden een aantal feiten berekend die gebruikt kunnen worden om de opstellingen te vergelijken. Alle berekeningen worden gedaan in [meetanalyse.xlsx](meetanalyse.xlsx).
@@ -174,6 +174,11 @@ Ten tweede moet worden gekeken in hoeverre de opstelling constant is. Als het pr
 
 Om tot een beoordeling te komen moet per periode die door de arduino wordt geregistreerd als 'ir aan' of 'ir uit' een standaardafwijking berekend worden. Op deze set van standaardafwijkingen moet opnieuw een standaardafwijking worden gedaan om tot de consistentie van de afwijkingen te komen. Dit getal kan worden gebruikt om de verschillende opstellingen te vergelijken.
 
+### Opstelling
+Om te zorgen dat alle codes eerlijk worden gemeten wordt de volgende opstelling gebruikt waarbij de afstand tussen verzender en ontvanger altijd constant is. De opstelling is als volgt:
+
+![testopstelling](imgs/testopstelling.jpg)
+
 ## Opdracht 5: Introduceer buffer met malloc en realloc
 *Het zou kunnen dat je metingen beïnvloed worden door het steeds printen naar de Serial (het printen kost immers tijd). Om dit uit te sluiten, gaan we pas printen zodra er een bepaalde tijd (zie Opdracht 2:) geen wijziging meer is ontvangen in de puls: de code is dan afgelopen. Uiteraard moeten de metingen wel opgeslagen worden. Doe dit in een dynamisch (niet-circulair) buffer waarbij je steeds als er een waarde wordt toegevoegd, de grootte van de buffer aanpast. Zodra de code is afgelopen en de waarden zijn geprint, verklein je de buffer weer naar 0 bytes. Schrijf een nieuw programma dat dit doet. Je mag de aan-/uit-tijden gewoon achter elkaar in 1 int-buffer zetten. Je krijgt dan dus weer een patroon van HIGH- en LOW-waarden na elkaar, maar kunt in de buffer niet zien welke LOW en HIGH worden (omdat een signaal altijd met een HIGH of LOW begint, kun je dat als het goed is echter wel afleiden als je wil).*
 
@@ -189,7 +194,7 @@ In deze grafiek staat op de y ass de periode in microseconden en op de x ass het
 
 Dit is een succesvol resultaat omdat te zien is dat twee verschillende knoppen de zelfde beginstructuur hebben. Dit is in lijn met de verwachtingen dat alle signialen van de afstandbediening allemaal beginnen met een aparaatcode die voor elke knop gelijk is.
 
-### Technische Beoordeling Opstellingen
+### Technische Beoordeling Opstelling: Resultaat
 | | |
 | ---- | --- |
 | Code | [opdracht-5/main.cpp](opdracht-5/main.cpp) |
@@ -275,13 +280,13 @@ De resultaat output zijn qua structuur gelijk aan die van opdracht 5, al zijn de
 
 De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstandsbediening maximaal dit aantal verschillende lengte pulsen verstuurd.
 
-### Technische Beoordeling Opstellingen
+### Technische Beoordeling Opstelling: Resultaat
 | | |
 | ---- | --- |
 | Code | [opdracht-7/main.cpp](opdracht-5/main.cpp) |
 | Meetgegevens | [opdracht-7/testdata.csv](opdracht-5/testdata.csv) |
-| Afwijking in resultaten | 2.70 |
-| Consistentie afwijking | 5.71 |
+| Afwijking in resultaten | 5.71 |
+| Consistentie afwijking | 2.70 |
 
 ## Opdracht 8: Maak gebruik van interrupts
 *Misschien beïnvloedt digitalRead de metingen ook wel. Schrijf een nieuw programma gebaseerd op opgave 7, waarbij je geen digitalRead meer gebruikt, maar interrupts (op zowel wijziging naar “hoog” als naar “laag”).*  
@@ -291,6 +296,16 @@ De uitwerking van deze opdracht is [hier](opdracht-8/main.cpp) te vinden. Het bi
 
 ![aanlsuitschema opdracht 8](opdracht-8/schema.png)
 
+De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstandsbediening maximaal dit aantal verschillende lengte pulsen verstuurd.
+
+### Technische Beoordeling Opstelling: Resultaat
+| | |
+| ---- | --- |
+| Code | [opdracht-8/main.cpp](opdracht-5/main.cpp) |
+| Meetgegevens | [opdracht-8/testdata.csv](opdracht-5/testdata.csv) |
+| Afwijking in resultaten | 22.86 |
+| Consistentie afwijking |  8.28 |
+
 ## Opdracht 9: Lees de ruwe pin-data
 *Een andere manier om om digitalRead heen te werken, is het uitlezen van de ruwe pin-data. DigitalRead doet dat ook, maar bevat wat overhead die je nu niet kunt gebruiken.*
 * Schrijf een nieuw programma, gebaseerd op je code bij Opdracht 7:, waarbij je direct pinaansturing gebruikt.*
@@ -298,6 +313,35 @@ De uitwerking van deze opdracht is [hier](opdracht-8/main.cpp) te vinden. Het bi
 De uitwerking van deze opdracht is [hier](opdracht-9/main.cpp) te vinden. Bijbehorden opstelling is als volgt:
 
 ![opstelling opdracht 9](opdracht-9/schema.png)
+
+De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstandsbediening maximaal dit aantal verschillende lengte pulsen verstuurd.
+
+### Technische Beoordeling Opstelling: Resultaat
+| | |
+| ---- | --- |
+| Code | [opdracht-9/main.cpp](opdracht-5/main.cpp) |
+| Meetgegevens | [opdracht-9/testdata.csv](opdracht-5/testdata.csv) |
+| Afwijking in resultaten | 7.99 |
+| Consistentie afwijking | 10.27 |
+
+## Technische Beoordeling Opstellingen: Conclusie
+De gegevens zoals verzameld in de vorige hoofdstuken zijn als volgt samengevat:
+
+|                           | Opdracht 5         | Opdracht 7        | Opdracht 8 | Opdracht 9 |
+| ---                       | ---                | ---               | ---        | --- |
+| Titel                     | Malloc en realloc  | Circulaire buffer | Interrupts | Directe aansturing |
+| Afwijking in resultaten   |  9.96              | 5.71              | 22.86      | 7.99  |
+| Consistentie afwijking    | 12.23              | 2.70              | 8.28       | 10.27  |
+
+Het eerste dat opvalt is dat de variant met interrupts de meeste afwijking in resultaten heeft is. Deze geeft dus de minst constante metingen.
+
+Verder is de afwijking in resultaten tussen opdracht 5, 7 en 9 redelijk gelijk. Daar durf ik geen verdere conclusies uit te trekken sinds de dataset ook een beetje klein is.
+
+De consistentie in afwijking is wel opvallend. De implementatie van opdracht 7 met een circulaire buffer en gebruik van `digitalRead` is het meest consistent. In vergelijking met opdracht 5 waarbij met malloc en realloc steeds memory moet worden gealloceerd is dit te verklaren sinds malloc en realloc veel impact hebben op de werking van het programma (zie opdracht 6). Maar in vergelijking met opdracht 9 is dat raar. In opdracht 9 wordt een directe aansturing van de pins wordt gebruikt in plaats vna de `digitalRead` in opdracht 7. Dit zou een positieve tot geen impact moeten hebben op de consistentie. Maar volgens de metingen is de afwijking van de metingen in opdracht 9 bijna 4 keer zo inconsistent. 
+
+Het is dus nodig om de meetresultaten te valideren. Als controle is de test met code van opdracht 9 nogmaals 20 keer uitgevoerd. De resultaten zijn weer te vinden in [meetanalyse.xlsx](meetanalyse.xlsx). Het resultaat van deze test is een gemiddelde standaardafwijking van 39.60 en 52.79 en een consistentie in de afwijking van 4.66 en 3.71. Het komt er op neer dat er nu hele andere testresultaten uitkomen. Dit laat zien dat alle consistentie metingen in dit onderzoek onbetrouwbaar zijn en dat de 7 uur die ik hieraan heb besteed niet nuttig waren. Jammer.
+
+De conclusie is dat het meten van consistentie van een softwareprogramma met behulp van hardware aansturing onbetrouwbaar is sinds (blijkbaar) de hardware opzichzelf inconsistent is.
 
 ## Opdracht 10: Vertraagde afstandsbediening
 Sluit een infrarood-led en een knop aan op je Arduino en breid je programma zo uit (maak eerst een kopie) dat het in de buffer opgeslagen signaal op de IR-led wordt afgespeeld op het moment dat je op de knop drukt.
