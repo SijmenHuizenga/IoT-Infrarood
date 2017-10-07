@@ -46,7 +46,7 @@ void loop(){
         lastMeasurement = now;
     }
     //more than 65 ms nothing than done
-    if(!buffer.empty() && (now-startMeasurement) > 1000000){
+    if(!buffer.empty() && (now-startMeasurement) > 100000){
         printoutBuffer();
         buffer.clear();
     }
