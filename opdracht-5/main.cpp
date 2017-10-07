@@ -34,7 +34,7 @@ void addToBuffer(timeunit time) {
 }
 
 void printoutBuffer(){
-    bool high = true;
+    bool high = false;
     for(int i = 0; i < buffersize; i++){
         Serial.println((high ? "Hi " : "Lo ") + String(buffer[i]));
         high = !high;
@@ -58,7 +58,7 @@ void loop(){
         lastIrStatus = lastIrStatus == HIGH ? LOW : HIGH;
 
         //start measuring if buffer is empty and new pulse is HIGH
-        if(buffer == NULL && lastIrStatus == HIGH) {
+        if(buffer == NULL && lastIrStatus == LOW) {
             startMeasurements = now;
             lastRelativeMicros = 0;
             return;
