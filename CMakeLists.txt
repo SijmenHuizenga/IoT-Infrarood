@@ -11,5 +11,7 @@ set(SOURCE_FILES
 #        opdracht-4/test1/main.cpp opdracht-4/test2/main.cpp
 #        opdracht-5/main.cpp
 #        opdracht-6/main.cpp
-        opdracht-7/main.cpp opdracht-7/circulairbuffer.cpp)
+#        opdracht-7/main.cpp opdracht-7/circulairbuffer.cpp
+        opdracht-8/main.cpp opdracht-8/circulairbuffer.cpp
+        )
 add_executable(iotir ${SOURCE_FILES})

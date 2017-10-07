@@ -255,8 +255,12 @@ De grote van de buffer moet minimaal 67 metingen kunnen bevatten omdat de afstan
 *Misschien beïnvloedt digitalRead de metingen ook wel. Schrijf een nieuw programma gebaseerd op opgave 7, waarbij je geen digitalRead meer gebruikt, maar interrupts (op zowel wijziging naar “hoog” als naar “laag”).*  
 *Let op: omdat Serial ook gebruik maakt van interrupts, kun je problemen krijgen (deadlocks) als je de Serial gebruikt in je eigen interruptfunctie. Laat het testen of er voldoende tijd verstreken is en het printen van de buffer dus buiten de interruptfunctie gebeuren.*
 
+De uitwerking van deze opdracht is [hier](opdracht-8/main.cpp) te vinden. Het bijbehorende aansluitschema is als volgt:
+
+![aanlsuitschema opdracht 8](opdracht-8/schema.png)
+
 ## Opdracht 9: Lees de ruwe pin-data
-Een andere manier om om digitalRead heen te werken, is het uitlezen van de ruwe pin-data. DigitalRead doet dat ook, maar bevat wat overhead die je nu niet kunt gebruiken.
+*Een andere manier om om digitalRead heen te werken, is het uitlezen van de ruwe pin-data. DigitalRead doet dat ook, maar bevat wat overhead die je nu niet kunt gebruiken.*
 
 Lees de toelichting op http://www.arduino.cc/en/Reference/PortManipulation
 
