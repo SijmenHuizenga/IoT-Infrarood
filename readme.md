@@ -344,17 +344,17 @@ Het is dus nodig om de meetresultaten te valideren. Als controle is de test met 
 De conclusie is dat het meten van consistentie van een softwareprogramma met behulp van hardware aansturing onbetrouwbaar is sinds (blijkbaar) de hardware opzichzelf inconsistent is.
 
 ## Opdracht 10: Vertraagde afstandsbediening
-Sluit een infrarood-led en een knop aan op je Arduino en breid je programma zo uit (maak eerst een kopie) dat het in de buffer opgeslagen signaal op de IR-led wordt afgespeeld op het moment dat je op de knop drukt.
+*Sluit een infrarood-led en een knop aan op je Arduino en breid je programma zo uit (maak eerst een kopie) dat het in de buffer opgeslagen signaal op de IR-led wordt afgespeeld op het moment dat je op de knop drukt. Alternatief is dat je het opgeslagen signaal met een factor 10 of 100 vertraagd laat afspelen op een zichtbare led. Dat is minder leuk, maar geeft wel een mooie lichtshow ;-)*
 
-Test het programma door een signaal te laten afspelen vlakbij het apparaat waarbij de afstandsbediening hoort (tv, dvd-speler). Als het werkt, weet je zeker dat je het goed hebt gedaan. Werkt het niet, dan kan er iets mis zijn met je programma, maar het kan ook zo zijn dat de golflengte van de IR-led niet dezelfde is van je afstandsbediening en dat de ontvanger in je tv gevoelig is. Je kunt het dan nog met een andere apparaat proberen.
+Sinds ik geen aparaat heb dat reageert op een ir signiaal heb ik deze opdracht geimplementeerd met een normale led. De led knippert 10.000 keer langzamer dan het ontvangen signiaal. De opstelling hierbij is als volgt:
 
-Alternatief is dat je het opgeslagen signaal met een factor 10 of 100 vertraagd laat afspelen op een zichtbare led. Dat is minder leuk, maar geeft wel een mooie lichtshow ;-)
+![schema opdracht 10](opdracht-10/schema.png)
+
+Het programma werkt! en ziet er zo uit:
+
+![demo opdracht 10](opdracht-10/demo.gif)
 
 
 ## Opdracht 11: Lampen schakelen met je afstandsbediening
-Deze laatste opdracht mag je samen met je practicumpartner doen (zorg wel dat je allebei het software-ontwerp en de software inlevert!). Ook de verplichte demonstratie mag je samen doen. Je mag zelf kiezen van wie je de IR-code als basis gebruikt.
-
-Sluit (minimaal) drie ledlampjes aan op je Arduino en zorg ervoor dat je die kunt aan- en uitzetten met de knoppen 1, 2 en 3 op je afstandsbediening. Daarnaast moet er een knop zijn waarmee je ineens alle ledjes kunt aan- en uitzetten.
-
-Tips om het onderscheid tussen de knoppen te maken, vind je in de Powerpoint “IR-signaal lezen” op #OnderwijsOnline.
+*Sluit (minimaal) drie ledlampjes aan op je Arduino en zorg ervoor dat je die kunt aan- en uitzetten met de knoppen 1, 2 en 3 op je afstandsbediening. Daarnaast moet er een knop zijn waarmee je ineens alle ledjes kunt aan- en uitzetten.*
 
