@@ -2,6 +2,8 @@
 
 Deze infroarood opdracht hoort bij het vak Things tijdens het semester Internet of Things bij de Hogeschool Arnhem Nijmegen. Hierbij de uitwerkingen.
 
+Bij alle opdrachten gebruik mijn eigen afstandsbediening en niet die van school in verband met praktische handigheid.
+
 ## Opdracht 1: Algemene vragen
 
 In de volgende antwoorden zijn alle berekeningen weggelaten sinds alleen standaard natuurkundinge formulus zijn gebruikt.  
@@ -358,3 +360,52 @@ Het programma werkt! en ziet er zo uit:
 ## Opdracht 11: Lampen schakelen met je afstandsbediening
 *Sluit (minimaal) drie ledlampjes aan op je Arduino en zorg ervoor dat je die kunt aan- en uitzetten met de knoppen 1, 2 en 3 op je afstandsbediening. Daarnaast moet er een knop zijn waarmee je ineens alle ledjes kunt aan- en uitzetten.*
 
+Om knoppen te kunnen herkennen moet eerst de signialen iets efficienter worden opgeslagen. Een lijst van rond de 70 perioden is toch niet zo praktisch. Een voorbeeld van een stukje data is als volgt:
+```
+Hi 1748
+Lo 496
+Hi 624
+Lo 500
+Hi 1748
+Lo 500
+Hi 1744
+Lo 504
+Hi 624
+```
+Te zien is dat er twee verschillende soorten signialen zijn; lange en korte. De lange zitten tussen de range van 1600 en 1800 en de korte zitten in een range van 450 - 650. Dit komt overeen met *Pulse Length Coding* zoals [hier](https://www.vishay.com/docs/80071/dataform.pdf) beschreven. Dit is geen *BI Phase Coding* sinds het lange signiaal niet in de buurt van twee keer zo lang is als het korte signiaal. 
+
+Het signiaal kan worden omgezet naar een binary signiaal door per meting te kijken of het een lang signiaal is en deze in een aantal bytes op te slaan. Het resultaat hiervan zijn 8 gevulde bytes:
+```
+(knop 1)
+10100010  (162)
+00001000  (8)
+10100010  (162)
+00001000  (8)
+10001010  (138)
+00001010  (10)
+00100000  (32)
+10100000  (160)
+```
+Het is mooi dat het precies 8 bytes zijn! Verder is interesant dat de eerste twee bytes worden herhaald, waarschijnlijk ter controle. Laten we kijken naar een aantal andere knoppen.
+```
+(knop 2)              (knop 3)              (knop 4)                (knop 'play')
+10100010  (162)       10100010  (162)       10100010  (162)         10100010    (162)
+00001000  (8)         00001000  (8)         00001000  (8)           00001000    (8)
+10100010  (162)       10100010  (162)       10100010  (162)         10100010    (162)
+00001000  (8)         00001000  (8)         00001000  (8)           00001000    (8)
+10100000  (160)       10100010  (162)       10101000  (168)         00000010    (2)
+00001010  (10)        00001010  (10)        00001010  (10)          00001010    (10)
+00001010  (10)        00001000  (8)         00000010  (2)           10101000    (168)
+10100000  (160)       10100000  (160)       10100000  (160)         10100000    (160)
+```
+Er zit een pattroon in. De eerste vier, de zesde en achtste bytes zijn bij elke knop gelijk.
+
+Wanneer een knop ingedrukt blijft wordt na de 8 bytes steeds 2 bits met waarde 0 ontvangen. Dit lijkt mij het herhaalsigniaal. Hier zal ik verder niks mee doen.
+
+Om nu tot het ledjes schakelen te komen is het alleen maar een kwestie van het vergelijken van bekende signialen met inkomende signialen om zo ledjes aan en uit te zetten. Hierbij hoort het volgende aansluitschema:
+
+![schema opdracht 11](opdracht-11/schema.png)
+
+En het resultaat ziet er dan zo uit:
+
+![opdracht 11 demo](opdracht-11/demo.gif)

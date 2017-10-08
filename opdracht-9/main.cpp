@@ -23,7 +23,7 @@ void setup() {
 void printoutBuffer(){
     bool high = true;
     for(int i = 0; i < buffer.length(); i++){
-        Serial.println((high ? "Lo " : "Hi ") + String(buffer.get(i)));
+        Serial.println(String(buffer.get(i)));
         high = !high;
     }
     Serial.println("=======================");
