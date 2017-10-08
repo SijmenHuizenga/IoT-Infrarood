@@ -2,8 +2,6 @@
 
 Deze infrarood opdracht hoort bij het vak 'Things' tijdens het semester Internet of Things bij de Hogeschool Arnhem Nijmegen. Hierbij de uitwerkingen.
 
-Bij alle opdrachten gebruik mijn eigen afstandsbediening en niet die van school in verband met praktische handigheid.
-
 ## Opdracht 1: Algemene vragen
 
 In de volgende antwoorden zijn alle berekeningen weggelaten sinds alleen standaard natuurkundige formules zijn gebruikt.
@@ -56,13 +54,17 @@ Het patroon dat de tv en afstandsbediening afspreken bevat ook een gedeelte dat 
 ### 7. Hoe kan het dat sommige knoppen als ze ingedrukt worden steeds effect blijven houden (zoals de volumeknoppen) en andere niet (bijvoorbeeld de “2”-knop)?
 De afstandsbediening is dom in de zin dat hij bij een ingedrukte knop continu het afgesproken patroon blijft knipperen. Dit geld voor alle knoppen. De ontvangende partij kan doen met deze informatie wat hij wil. Zo zal een tv die een aan/uit knop patroon ontvangt zichzelf uitzetten en pas weer een aan/uit knop patroon accepteren wanneer het een tijdje stil is. Bij de volumeknop zal er een andere logica in de tv zitten die er voor zorgt dat zolang het patroon binnen komt elke halve seconde het volume wordt verhoogd.
 
-## Opdracht 2: Opdracht 2Aansluiten en testen
+## Opdracht 2: Aansluiten en testen
 *Sluit de IR-sensor aan en voeg een ledje (met voor jou zichtbaar licht) toe. Schrijf een testprogramma dat het ledje aan laat gaan zodra er een IR-signaal binnenkomt, en weer uit zodra er (na een korte wachttijd) weer een IR-signaal binnenkomt. Als je klaar bent, kun je het ledje met een willekeurige druk op de afstandsbediening toggelen.*
 
+De uitwerking van deze opdracht is [hier](opdracht-2/main.cpp) te vinden.
+
 Schema:
+
 ![Opdracht 2 fritzing schema](opdracht-2/schema.png)
 
 Werking:
+
 ![Opdracht 2 gif](opdracht-2/result.gif)
 
 ### Geeft de sensor “HIGH” bij het ontvangen van een signaal of juist bij afwezigheid ervan?
@@ -76,7 +78,7 @@ Een wachttijd van 99 ms zorgt ervoor dat hij 'het doet' met mijn eigen afstandsb
 
 *Test je programma door een aantal keer dezelfde knop op de afstandsbediening te gebruiken en bekijk of het in de Serial geprinte resultaat steeds (ongeveer) hetzelfde is.*
 
-Het resultaat van drie keer een druk op de aan/uit knop op de afstandsbediening:
+De uitwerking is [hier](opdracht-3/main.cpp) te vinden. Het resultaat van drie keer een druk op de aan/uit knop op de afstandsbediening:
 
 | test 1      | test 2      | test 3         |
 | ----------- | ----------- | -------------- |
@@ -91,7 +93,7 @@ Het resultaat van drie keer een druk op de aan/uit knop op de afstandsbediening:
 | on 6364     | on 9500     | |
 | of 12       | of 8        | |
 
-Elke keer is het patroon soort van gelijk, maar er zitten best grote verschillen tussen. Te grote verschillen om een knop te kunnen herkennen.
+Elke keer is het patroon soort van gelijk, maar er zitten best grote verschillen tussen. De verschillen zijn te groot om een knop te kunnen herkennen.
 
 Schema:
 
@@ -107,7 +109,7 @@ Werking:
 
 Ik verwacht dat de langere tekstlengte, lage baudrate en de toevoeging van een newline allemaal de snelheid verlagen. Verder verwacht ik dat de snelheid van printen rond de 1 a 2 milliseconde zal zitten.
 
-Test 1 test alle combinaties van verschillende baudrate's, tekstlengtes en printmethode. Hierbij wordt voor de korte tekst de letter `a` gebruikt en voor de lange tekst de volgende letterreeks: `aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==`. Na elke testronde wordt de serial geflusht zodat alle data verzonden is. Verder wordt bij elke `Serial.begin()` de uitvoertijd van deze methode gemeten. De resultaten zijn:
+[Testcode 1](opdracht-4/test1/main.cpp) test alle combinaties van verschillende baudrate's, tekstlengtes en printmethode. Hierbij wordt voor de korte tekst de letter `a` gebruikt en voor de lange tekst de volgende letterreeks gebruikt: `aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==`. Na elke testronde wordt de serial geflusht zodat alle data gegarandeerd verzonden is. Verder wordt bij elke `Serial.begin()` de uitvoertijd van deze methode gemeten. De resultaten zijn:
 
 | method | textsize | baudrate | average over 100 calls in micros |
 | ------ | -------- | -------- | ---------------------- |
@@ -138,7 +140,6 @@ Wat interessant is, is dat de lange tekst van 60 karakters per karakter 1.38775 
 Gemiddeld duren alle tests met de print methode 4.1632 ms en gemiddeld alle println methodes 4.43625 ms. De toevoeging van println zorgt dus voor een iets langere berichttijd.
 
 ### Maakt de baudrate uit?
-
 De gemiddelde baud rates per berichten zijn als volgt:
 
 | baud rate | average message time in ms |
@@ -151,15 +152,13 @@ De gemiddelde baud rates per berichten zijn als volgt:
 Een hogere baud rate zorgt dus voor een sneller berichtoverdracht.
 
 ### Maakt het uit of je Serial venster open staat (hint: om de metingen te kunnen inzien kun je het EEPROM-geheugen en een extra programma gebruiken)?
-Deze test wordt uitgevoerd in test2.cpp. De test gebruikt println, 60 karakter berichten en baudrate 9600. De verbonden test kostte dit 64.480 ms per bericht. De nieuwe niet-verbonden test kostte 64.480 ms per bericht. Dit is ongelofelijk precies gelijk, maar ook na herhaling van de test blijft dit getal gelijk. Er is dus geen verschil of de serial monitor aan of uit staat.
-
-
+In [testcode 2](opdracht-4/test2/main.cpp) wordt gebruikt om deze vraag te beantwoorden. Hoe deze test precies in elkaar zit is te lezen in de documentatie in de source code. De test gebruikt println, 60 karakter berichten en baudrate 9600. De 'verbonden' test kostte dit 64.480 ms per bericht. De 'nieuwe niet-verbonden' test kostte 64.480 ms per bericht. Dit is ongelofelijk precies gelijk, maar ook na herhaling van de test blijft dit getal gelijk. Er is dus geen verschil of de serial monitor aan of uit staat.
 
 *Voor deze test is een andere serial monitor gebruikt dan de standaard arduino versie sinds de arduino serial monitor de arduino reset bij aansluiting*
 
 
 ### Hierboven staat dat het opstarten van de Serial tijd kost. Is dat eigenlijk wel waar, en hoeveel tijd is dat dan?
-Ja, het opstarten van Serial kost tijd, maar niet zo veel tijd. Om precies te zijn 0.945 ms zoals te zien is in de resultaten van test1.
+Ja, het opstarten van Serial kost tijd, maar niet zo veel tijd. Om precies te zijn 0.945 ms zoals te zien is in de resultaten van testopstelling 1.
 
 ### Conclusie
 Met de standaard baudrate van 9600 is de snelheid van een 1-karakter bericht 2.080 ms. Bij de langere berichten van 60 karakters is dit 63.44 ms. Ik had verwacht dat alle berichten gemiddeld rond de 2 ms zouden zitten. Dit blijkt dus wel een stuk hoger te zijn. Ik neem hiervan mee dat ik voortaan beter een hogere baudrate kan gebruiken.
@@ -167,7 +166,7 @@ Met de standaard baudrate van 9600 is de snelheid van een 1-karakter bericht 2.0
 ## Technische Beoordeling Opstellingen: Opzet
 In de komende opdrachten (5, 7, 8 en 9) worden vier verschillende opstellingen gebouwd om de periode aan/uit van een infraroodsignaal te ontvangen. Om deze verschillende opstellingen te kunnen vergelijken heb ik een experiment ontworpen waarmee de opstellingen met elkaar kunnen worden vergeleken. In dit hoofdstuk wordt dit experiment uiteengezet.
 
-In een ideale situatie zouden de meetwaarden aan de infraroodsensor bij twee keer indrukken van dezelfde knop exact gelijk zijn. Er zijn helaas te veel factoren die invloed hebben op de meetdata dat het praktisch onmogelijk is dit te bereiken. Door per opstelling vijf keer dezelfde knop op de afstandsbediening in te drukken, en te noteren wat de uitvoer is kan worden gerekend aan de verschillende opstellingen. Met deze meetwaarden worden een aantal feiten berekend die gebruikt kunnen worden om de opstellingen te vergelijken. Alle berekeningen worden gedaan in [meetanalyse.xlsx](meetanalyse.xlsx).
+In een ideale situatie zouden de meetwaarden aan de infraroodsensor bij twee keer indrukken van dezelfde knop exact gelijk zijn. Er zijn helaas te veel factoren die invloed hebben op de meetdata dat het praktisch onmogelijk is dit te bereiken. Door per opstelling vijf keer dezelfde knop op de afstandsbediening in te drukken, en te noteren wat de uitvoer is, kan worden gerekend aan de verschillende opstellingen. Met deze meetwaarden worden een aantal feiten berekend die gebruikt kunnen worden om de opstellingen te vergelijken. Alle berekeningen zijn gedaan in [meetanalyse.xlsx](meetanalyse.xlsx).
 
 Bij deze beoordeling wordt de correctheid van de meting niet meegenomen. Als er constant een incorrect signaal wordt gemeten, maar dit signaal is wel uniek genoeg om de knop te kunnen herkennen dan is dit voldoende. Een inconsistente opstelling waarbij soms een correct signaal wordt gemeten, maar soms ook een heel ander signaal wordt gemeten bij dezelfde afstandsbediening knop is minder wenselijk. Vandaar dat bij de beoordeling van opstellingen naar consistentie wordt gekeken.
 
@@ -177,7 +176,7 @@ De afwijking in resultaten tussen verschillende tests van belang. Als de eerste 
 Om tot een beoordeling te komen moet per periode die door de arduino wordt geregistreerd als 'ir aan' of 'ir uit' een standaardafwijking berekend worden. Door het gemiddelde te berekenen van deze standaardafwijkingen wordt de gemiddelde afwijking in resultaten gevonden. Dit getal kan worden gebruikt om de verschillende opstellingen te vergelijken.
 
 ### Consistentie afwijking
-Ten tweede moet worden gekeken in hoeverre de opstelling constant is. Als het programma elke 3e meting ineens extra tijd nodig heeft dan worden er inconsistente metingen gedaan. Als de eerste 'uit' periode van een infraroodsignaal steeds erg consistent wordt gemeten, maar het volgende 'aan' signiaal wordt relatief vaak inconsistent gemeten dan is een teken van inconsistentie.
+Ten tweede moet worden gekeken in hoeverre de opstelling constant is. Als het programma elke 3e meting ineens extra tijd nodig heeft dan worden er inconsistente metingen gedaan. Als de eerste 'uit' periode van een infraroodsignaal steeds erg consistent wordt gemeten, maar het volgende 'aan' signiaal wordt relatief vaak inconsistent gemeten dan is dit een teken van inconsistentie.
 
 Om tot een beoordeling te komen moet per periode die door de arduino wordt geregistreerd als 'ir aan' of 'ir uit' een standaardafwijking berekend worden. Op deze set van standaardafwijkingen moet opnieuw een standaardafwijking worden gedaan om tot de consistentie van de afwijkingen te komen. Dit getal kan worden gebruikt om de verschillende opstellingen te vergelijken.
 
@@ -275,7 +274,7 @@ De uitwerkingen zijn [hier](opdracht-7) te vinden. De testopstelling is als volg
 
 ![Opdracht 7 fritzing schema](opdracht-7/schema.png)
 
-De resultaat output zijn qua structuur gelijk aan die van opdracht 5, al zijn de specifieke getallen net iets anders. Op dit moment heb ik nog niet genoeg informatie om te kunnen zeggen of deze implementatie ook daadwerkelijk accurater is dan die van opdracht 5.
+De uitvoer is qua structuur gelijk aan die van opdracht 5, al zijn de specifieke getallen net iets anders. Op dit moment heb ik nog niet genoeg informatie om te kunnen zeggen of deze implementatie ook daadwerkelijk accurater is dan die van opdracht 5.
 
 ### Technische Beoordeling Opstelling: Resultaat
 | | |
@@ -334,9 +333,9 @@ Het eerste dat opvalt is dat de variant met interrupts de meeste afwijking in re
 
 Verder is de afwijking in resultaten tussen opdracht 5, 7 en 9 redelijk gelijk. Daar durf ik geen verdere conclusies uit te trekken sinds de dataset ook een beetje klein is.
 
-De consistentie in afwijking is wel opvallend. De implementatie van opdracht 7 met een circulaire buffer en gebruik van 'digitalRead' is het meest consistent. In vergelijking met opdracht 5 waarbij met malloc en realloc steeds memory moet worden gealloceerd is dit te verklaren sinds malloc en realloc veel impact hebben op de werking van het programma (zie opdracht 6). Maar in vergelijking met opdracht 9 is dat raar. In opdracht 9 wordt een directe aansturing van de pins wordt gebruikt in plaats van de 'digitalRead' in opdracht 7. Dit zou een positieve tot geen impact moeten hebben op de consistentie. Maar volgens de metingen is de afwijking van de metingen in opdracht 9 bijna 4 keer zo inconsistent.
+De consistentie in afwijking is wel opvallend. De implementatie van opdracht 7 met een circulaire buffer en gebruik van 'digitalRead' is het meest consistent. In vergelijking met opdracht 5 waarbij met malloc en realloc steeds memory moet worden gealloceerd is dit te verklaren sinds malloc en realloc veel impact hebben op de werking van het programma (zie opdracht 6). Maar in vergelijking met opdracht 9 is dat raar. In opdracht 9 wordt een directe aansturing van de pins gebruikt in plaats van de 'digitalRead' in opdracht 7. Dit zou een positieve tot geen impact moeten hebben op de consistentie. Maar volgens de metingen is de afwijking van de metingen in opdracht 9 bijna 4 keer zo inconsistent.
 
-Het is dus nodig om de meetresultaten te valideren. Als controle is de test met code van opdracht 9 nogmaals 20 keer uitgevoerd. De resultaten zijn weer te vinden in [meetanalyse.xlsx](meetanalyse.xlsx). Het resultaat van deze test is een gemiddelde standaardafwijking van 39.60 en 52.79 en een consistentie in de afwijking van 4.66 en 3.71. Het komt er op neer dat er nu hele andere testresultaten uitkomen. Dit laat zien dat alle consistentie metingen in dit onderzoek onbetrouwbaar zijn en dat de 7 uur die ik hieraan heb besteed niet nuttig waren; helaas.
+Het is dus nodig om de meetresultaten te valideren. Als controle heb ik de test met code van opdracht 9 nogmaals 20 keer uitgevoerd. De resultaten zijn weer te vinden in [meetanalyse.xlsx](meetanalyse.xlsx). Het resultaat van deze test is een gemiddelde standaardafwijking van 39.60 en 52.79 en een consistentie in de afwijking van 4.66 en 3.71. Het komt er op neer dat er nu hele andere testresultaten uitkomen. Dit laat zien dat alle consistentie metingen in dit onderzoek onbetrouwbaar zijn en dat de 7 uur die ik hieraan heb besteed niet nuttig waren; helaas.
 
 De conclusie is dat het meten van consistentie van een softwareprogramma met behulp van hardware aansturing onbetrouwbaar is sinds (blijkbaar) de hardware op zichzelf inconsistent is.
 
@@ -403,3 +402,7 @@ Om nu tot het ledjes schakelen te komen is het alleen maar een kwestie van het v
 En het resultaat ziet er dan zo uit:
 
 ![opdracht 11 demo](opdracht-11/demo.gif)
+
+En het bijbehorende state diagram:
+
+![Een super nuttig state diagram](opdracht-11/statediagram.png)

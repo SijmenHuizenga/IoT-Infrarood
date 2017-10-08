@@ -39,8 +39,8 @@ void loop(){
         addMeasurement((timeunit) (now-lastMeasurementMoment));
         lastMeasurementMoment = now;
     }
-    //more than 65 ms nothing than done
-    if(state != IDLE && (now-startMeasurementMoment) > 65530)
+    //nothing received in some time, than finish
+    if(state != IDLE && (now-startMeasurementMoment) > MAXMEASUREMENTTIME)
         finishMeasurement();
 }
 
@@ -49,16 +49,16 @@ void addMeasurement(timeunit period) {
     if(measurementNr == 0 && period > 4000)
         return;
 
-    if(period >= 450 && period <= 650)
+    if(period >= LONGPULSE_BIGGER && period <= LONGPULSE_SMALLER)
         addMeasurementBit(0);
-    else if(period >= 1600 && period <= 1800)
+    else if(period >= SHORTPULSE_BIGGER && period <= SHORTPULSE_SMALLER)
         addMeasurementBit(1);
     else
         finishMeasurement();
 }
 
 void addMeasurementBit(byte bit) {
-    bitWrite(measurements[measurementNr / 8], measurementNr % 8, bit);
+    bitWrite(measurements[measurementNr / BITSINBYTE], measurementNr % BITSINBYTE, bit);
     measurementNr++;
 }
 
@@ -80,8 +80,8 @@ void finishMeasurement() {
 }
 
 void printMeasurements() {
-    for (int i = 0; i < (measurementNr+7)/8; i++){
-        for(int j = 7; j >= 0; j--)
+    for (int i = 0; i < (measurementNr+BITSINBYTE-1)/BITSINBYTE; i++){
+        for(int j = BITSINBYTE-1; j >= 0; j--)
             Serial.print(bitRead(measurements[i], j));
         Serial.println("    (" + String(measurements[i], DEC) + ")");
     }
@@ -95,7 +95,6 @@ void checkLedNewStatus(int *ledsToTurnOnOff, int ledcount, byte *knopcode) {
     bool newStatus = !digitalRead(ledsToTurnOnOff[0]);
     for(int i = 0; i < ledcount; i++)
         digitalWrite(ledsToTurnOnOff[i], newStatus);
-
 }
 
 
